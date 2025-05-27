@@ -47,5 +47,27 @@
 
             <a-entity camera></a-entity>
         </a-scene>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const scene = document.querySelector("#scene");
+              const requestFullscreen = () => {
+                const el = document.documentElement;
+                if (el.requestFullscreen) {
+                  el.requestFullscreen();
+                } else if (el.mozRequestFullScreen) {
+                  el.mozRequestFullScreen();
+                } else if (el.webkitRequestFullscreen) {
+                  el.webkitRequestFullscreen();
+                } else if (el.msRequestFullscreen) {
+                  el.msRequestFullscreen();
+                }
+              };
+          
+              // Auto fullscreen on first interaction (Android Chrome requires gesture)
+              document.body.addEventListener("click", requestFullscreen, { once: true });
+              document.body.addEventListener("touchstart", requestFullscreen, { once: true });
+            });
+          </script>
+          
     </body>
 </html>
