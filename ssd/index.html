@@ -1,77 +1,135 @@
 <!doctype html>
 <html>
-    <head>
-        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-        <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-        <style>
-            #fullscreen-btn {
-              position: fixed;
-              top: 12px;
-              right: 12px;
-              z-index: 9999;
-              padding: 10px 18px;
-              font-size: 15px;
-              background: rgba(0, 0, 0, 0.6);
-              color: #fff;
-              border: none;
-              border-radius: 6px;
-              cursor: pointer;
-            }
-          </style>
-    </head>
 
-    <body style="margin: 0; overflow: hidden;">
-        <button id="fullscreen-btn">Fullscreen</button>
-        <a-scene
-            vr-mode-ui="enabled: false;"
-            loading-screen="enabled: false;"
-            renderer="logarithmicDepthBuffer: true;"
-            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-            id="scene"
-            embedded
-            gesture-detector
-        >
-            <a-assets>
-                <a-asset-item
-                    id="animated-asset"
-                    src="assets/asset.glb"
-                ></a-asset-item>
-            </a-assets>
+<head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script
+        src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+    <script
+        src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
 
-            <a-marker
-                id="animated-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/marker.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-                id="markerA"
-            >
-                <a-entity
-                    id="bowser-model"
-                    scale="0.23895085937217894 0.23895085937217894 0.23895085937217894"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    class="clickable"
-                    gesture-handler
-                ></a-entity>
-            </a-marker>
+        #fullscreen-btn,
+        #info-btn {
+            position: fixed;
+            z-index: 9999;
+            padding: 10px 18px;
+            font-size: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
 
-            <a-entity camera></a-entity>
-        </a-scene>
-        <script>
-            const fullscreenBtn = document.getElementById("fullscreen-btn");
-            fullscreenBtn.addEventListener("click", () => {
-              const el = document.documentElement;
-              if (el.requestFullscreen) el.requestFullscreen();
-              else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-              else if (el.msRequestFullscreen) el.msRequestFullscreen();
-              else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
-            });
-          </script>
-    </body>
+        #fullscreen-btn {
+            top: 12px;
+            right: 12px;
+        }
+
+        #info-btn {
+            top: 60px;
+            right: 12px;
+        }
+
+        #modal-info {
+            position: fixed;
+            z-index: 99999;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            max-width: 400px;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        #modal-info p {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        #close-modal {
+            margin-top: 15px;
+            background: #0d47a1;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            float: right;
+        }
+    </style>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+    <button id="fullscreen-btn">Fullscreen</button>
+    <button id="info-btn">Penjelasan SSD</button>
+
+    <!-- Modal -->
+    <div id="modal-info">
+        <p><strong>SSD:</strong> Solid State Drive (SSD) adalah media penyimpanan data yang lebih cepat dan tahan
+            guncangan
+            dibandingkan hard disk konvensional.</p>
+        <button id="close-modal">Tutup</button>
+    </div>
+
+    <!-- Audio -->
+    <audio id="ssd-audio" src="assets/ElevenLabs_2025-05-27T07_07_20_Rachel_pre_sp100_s50_sb75_se0_b_m2.mp3"></audio>
+    <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;" renderer="logarithmicDepthBuffer: true;"
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
+        <a-assets>
+            <a-asset-item id="animated-asset" src="assets/asset.glb"></a-asset-item>
+        </a-assets>
+
+        <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
+            raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
+            <a-entity id="bowser-model" scale="0.23895085937217894 0.23895085937217894 0.23895085937217894"
+                animation-mixer="loop: repeat" gltf-model="#animated-asset" class="clickable"
+                gesture-handler></a-entity>
+        </a-marker>
+
+        <a-entity camera></a-entity>
+    </a-scene>
+    <script>
+        const fullscreenBtn = document.getElementById("fullscreen-btn");
+        const infoBtn = document.getElementById("info-btn");
+        const modal = document.getElementById("modal-info");
+        const closeBtn = document.getElementById("close-modal");
+        const audio = document.getElementById("ssd-audio");
+
+        fullscreenBtn.addEventListener("click", () => {
+            const el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen();
+            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+            else if (el.msRequestFullscreen) el.msRequestFullscreen();
+            else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+        });
+
+        infoBtn.addEventListener("click", () => {
+            modal.style.display = "block";
+            audio.load();
+            audio.addEventListener("canplaythrough", () => {
+                audio.play().catch(err => console.warn("Gagal play:", err));
+            }, { once: true });
+        });
+
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+            audio.pause();
+            audio.currentTime = 0;
+        });
+    </script>
+</body>
+
 </html>
