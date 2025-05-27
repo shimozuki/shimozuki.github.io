@@ -6,9 +6,26 @@
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+        <style>
+            #fullscreen-btn {
+              position: fixed;
+              top: 12px;
+              right: 12px;
+              z-index: 9999;
+              padding: 10px 18px;
+              font-size: 15px;
+              background: rgba(0, 0, 0, 0.6);
+              color: #fff;
+              border: none;
+              border-radius: 6px;
+              cursor: pointer;
+            }
+          </style>
     </head>
 
     <body style="margin: 0; overflow: hidden;">
+        <!-- Tombol Fullscreen -->
+        <button id="fullscreen-btn">Fullscreen</button>
         <a-scene
             vr-mode-ui="enabled: false;"
             loading-screen="enabled: false;"
@@ -47,5 +64,16 @@
 
             <a-entity camera></a-entity>
         </a-scene>
+
+        <script>
+            const fullscreenBtn = document.getElementById("fullscreen-btn");
+            fullscreenBtn.addEventListener("click", () => {
+              const el = document.documentElement;
+              if (el.requestFullscreen) el.requestFullscreen();
+              else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+              else if (el.msRequestFullscreen) el.msRequestFullscreen();
+              else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+            });
+          </script>
     </body>
 </html>
