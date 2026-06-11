@@ -8,6 +8,49 @@
   <!-- <link href="asset/aos.css" rel="stylesheet"> -->
   <link href="asset/bootstrap.min.css" rel="stylesheet">
   <link href="asset/stylee.css" rel="stylesheet">
+
+  <style>
+    .code-wrap {
+      padding: 1rem 0
+    }
+
+    .code-block {
+      background: var(--color-background-secondary);
+      border: 0.5px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-lg);
+      padding: 1rem 1.25rem;
+      position: relative;
+      overflow: auto;
+      max-height: 520px
+    }
+
+    pre {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--color-text-primary);
+      line-height: 1.7;
+      white-space: pre
+    }
+
+    .copy-btn {
+      position: sticky;
+      top: 0;
+      float: right;
+      margin-bottom: 8px;
+      font-size: 12px;
+      padding: 4px 12px;
+      cursor: pointer;
+      background: var(--color-background-primary);
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-md);
+      color: var(--color-text-secondary)
+    }
+
+    .copy-btn:hover {
+      background: var(--color-background-secondary)
+    }
+  </style>
 </head>
 
 <body id="top">
@@ -30,9 +73,6 @@
               <li class="nav-item"><a class="nav-link smooth-scroll" href="#skill">Skills</a></li>
               <li class="nav-item"><a class="nav-link smooth-scroll" href="#pendidikan">Pendidikan</a></li>
               <li class="nav-item"><a class="nav-link smooth-scroll" href="#contact">Kontak</a></li>
-              <li class="nav-item">
-                <div id="google_translate_element"></div>
-              </li>
             </ul>
           </div>
         </div>
@@ -181,7 +221,7 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="progress-container progress-info"><span class="progress-badge">Angular</span>
+                    <div class="progress-container progress-info"><span class="progress-badge">Golang</span>
                       <div class="progress">
                         <div class="progress-bar progress-bar-info" data-aos="progress-full" data-aos-offset="10"
                           data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
@@ -228,85 +268,421 @@
               </div>
             </div>
           </div>
-          <div class="section" id="contact">
+          <!-- Experience Section -->
+          <div class="section" id="experience">
             <div class="cc-contact-information"
               style="background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(16,196,232,1) 94%);">
               <div class="container">
                 <div class="cc-contact">
                   <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-lg-12">
                       <div class="card mb-0" data-aos="zoom-in">
                         <div class="h4 text-center title">Experience</div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="card-body">
-                              <div class="mb-4">
-                                <h6 class="mb-0">
-                                  Frontend Web Developer — Datasea
-                                </h6>
-                                <span class="badge bg-primary" style="font-weight:300;">Contract</span>
-                                <div class="text-muted">
-                                  <i class="fa fa-calendar"></i> Jul 2023 – Sekarang
-                                  &nbsp;•&nbsp; <i class="fa fa-map-marker"></i> Jakarta Raya, Indonesia · Remote
+                        <div class="card-body">
+
+                          <!-- Styles (add to your CSS file or <style> tag) -->
+                          <style>
+                            .exp-grid {
+                              display: grid;
+                              grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                              gap: 20px;
+                              margin-top: 30px;
+                            }
+
+                            @media (max-width: 992px) {
+                              .exp-grid {
+                                grid-template-columns: repeat(2, 1fr);
+                              }
+                            }
+
+                            @media (max-width: 768px) {
+                              .exp-grid {
+                                grid-template-columns: 1fr;
+                              }
+                            }
+
+                            .exp-company {
+                              background: #fff;
+                              border-radius: 14px;
+                              border: 1px solid #e5e7eb;
+                              padding: 18px;
+                              transition: .3s;
+                              cursor: pointer;
+                              min-height: 130px;
+                            }
+
+                            .exp-company:hover {
+                              transform: translateY(-4px);
+                              box-shadow: 0 12px 25px rgba(0, 0, 0, .08);
+                            }
+
+                            .exp-company-header {
+                              display: flex;
+                              align-items: center;
+                              gap: 15px;
+                            }
+
+                            .exp-icon {
+                              width: 42px;
+                              height: 42px;
+                              border-radius: 10px;
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+                              flex-shrink: 0;
+                            }
+
+                            .exp-meta {
+                              flex: 1;
+                            }
+
+                            .exp-company-name {
+                              font-size: 18px;
+                              font-weight: 700;
+                              line-height: 1.3;
+                            }
+
+                            .exp-sub {
+                              margin-top: 6px;
+                              display: flex;
+                              flex-wrap: wrap;
+                              gap: 8px;
+                              font-size: 13px;
+                              color: #6b7280;
+                            }
+
+                            .exp-badge {
+                              padding: 2px 8px;
+                              border-radius: 20px;
+                              font-size: 10px;
+                            }
+
+                            .badge-contract {
+                              background: #dbeafe;
+                              color: #2563eb;
+                            }
+
+                            .badge-volunteer {
+                              background: #dcfce7;
+                              color: #15803d;
+                            }
+
+                            .badge-intern {
+                              background: #fef3c7;
+                              color: #ca8a04;
+                            }
+
+                            .exp-toggle-icon {
+                              margin-left: auto;
+                              color: #aaa;
+                              transition: .3s;
+                            }
+
+                            .exp-body {
+                              display: none;
+                              border-top: 1px solid #eee;
+                              padding: 15px;
+                            }
+
+                            .exp-role {
+                              margin-bottom: 15px;
+                            }
+
+                            .exp-role:last-child {
+                              margin-bottom: 0;
+                            }
+
+                            .exp-role-title {
+                              font-size: 13px;
+                              font-weight: 600;
+                              margin-bottom: 6px;
+                            }
+
+                            .exp-proj-list {
+                              margin: 0;
+                              padding-left: 18px;
+                            }
+
+                            .exp-proj-list li {
+                              font-size: 12px;
+                              color: #666;
+                              margin-bottom: 4px;
+                            }
+
+                            .exp-tech {
+                              margin-top: 8px;
+                            }
+
+                            .exp-pill {
+                              display: inline-block;
+                              font-size: 10px;
+                              border: 1px solid #ddd;
+                              border-radius: 20px;
+                              padding: 3px 8px;
+                              margin-right: 4px;
+                              margin-top: 4px;
+                            }
+
+                            .exp-client-tag {
+                              font-size: 11px;
+                              color: #999;
+                            }
+
+                            .exp-role-short {
+                              font-size: 14px;
+                              color: #2563eb;
+                              font-weight: 600;
+                              margin-top: 4px;
+                            }
+                          </style>
+                          <div class="exp-grid">
+
+                            <!-- DATASEA -->
+                            <div class="exp-company">
+                              <div class="exp-company-header" onclick="expToggle(this)">
+                                <div class="exp-icon" style="background:#dbeafe;color:#2563eb">
+                                  <img src="img/Picture1.png" alt="datasea">
                                 </div>
-                                <div class="small">Tech: Vue.js, Laravel, .NET, Angular JS, SQL SERVER</div>
-                              </div>
-                              <div class="mb-2">
-                                <h6 class="mb-0">
-                                  PT. Kong Jaya Perkasa
-                                </h6>
-                                <span class="badge bg-primary" style="font-weight:300;">Contract</span>
-                                <ul class="list-unstyled pl-3" style="margin-bottom:0;">
-                                  <li class="mb-3">
-                                    <strong>Mobile Developer</strong>
-                                    <div class="text-muted">
-                                      <i class="fa fa-calendar"></i> Aug 2021 – Oct 2023
-                                      &nbsp;•&nbsp; <i class="fa fa-map-marker"></i> Mataram, Nusa Tenggara Barat,
-                                      Indonesia
-                                    </div>
-                                    <div class="small">Tech: Flutter</div>
-                                  </li>
-                                  <li class="mb-3">
-                                    <strong>Frontend Web Developer</strong>
-                                    <div class="text-muted">
-                                      <i class="fa fa-calendar"></i> Aug 2020 – Oct 2023
-                                      &nbsp;•&nbsp; <i class="fa fa-map-marker"></i> Mataram, Nusa Tenggara Barat,
-                                      Indonesia · On-site
-                                    </div>
-                                    <div class="small">Tech: Vue Js, Angular Js</div>
-                                  </li>
-                                  <li class="mb-1">
-                                    <strong>Back End Developer</strong>
-                                    <div class="text-muted">
-                                      <i class="fa fa-calendar"></i> Aug 2020 – Oct 2023
-                                      &nbsp;•&nbsp; <i class="fa fa-map-marker"></i> Mataram, Nusa Tenggara Barat,
-                                      Indonesia · On-site
-                                    </div>
-                                    <div class="small">Tech: PHP, Laravel, dan lainnya</div>
-                                  </li>
-                                </ul>
-                              </div>
-                              <div class="mt-3">
-                                <h6 class="mb-0">
-                                  Full-stack Developer — Graha Software House
-                                </h6>
-                                <span class="badge bg-secondary" style="font-weight:400;">Internship</span>
-                                <div class="text-muted">
-                                  <i class="fa fa-calendar"></i> Jan 2017 – Apr 2017
+
+                                <div class="exp-meta">
+                                  <div class="exp-company-name">
+                                    PT Datasea
+                                  </div>
+                                  <div class="exp-role-short">
+                                    Middle Fullstack Developer
+                                  </div>
+
+                                  <div class="exp-sub">
+                                    <span class="exp-badge badge-contract">Contract</span>
+                                    <span>2023 - 2025</span>
+                                  </div>
                                 </div>
-                                <div class="small">Tech: Laravel, MySQL, dan lainnya</div>
+
+                                <i class="fa fa-chevron-down exp-toggle-icon"></i>
                               </div>
 
+                              <div class="exp-body">
+
+                                <div class="exp-role">
+                                  <div class="exp-role-title">
+                                    Full Stack Developer
+                                  </div>
+
+                                  <ul class="exp-proj-list">
+                                    <li>BI Data Management (Kraft Heinz)</li>
+                                    <li>SNOP Forecasting (Kraft Heinz)</li>
+                                    <li>Logistic Dashboard (Kraft Heinz)</li>
+                                    <li>Employee Cost Planning (BUMA)</li>
+                                    <li>E-Recruitment API (BUMA)</li>
+                                    <li>eProcurement (Astra)</li>
+                                    <li>eProcurement (Trakindo)</li>
+                                  </ul>
+
+                                  <div class="exp-tech">
+                                    <span class="exp-pill">Laravel</span>
+                                    <span class="exp-pill">.NET</span>
+                                    <span class="exp-pill">Angular</span>
+                                    <span class="exp-pill">Vue 3</span>
+                                    <span class="exp-pill">SQL Server</span>
+                                  </div>
+
+                                </div>
+
+                              </div>
                             </div>
+
+                            <!-- DISKOMINFOTIK -->
+                            <div class="exp-company">
+                              <div class="exp-company-header" onclick="expToggle(this)">
+                                <div class="exp-icon" style="background:#dcfce7;color:#15803d">
+                                  <img src="/img/kominfo.png" alt="kominfo">
+                                </div>
+
+                                <div class="exp-meta">
+                                  <div class="exp-company-name">
+                                    Diskominfotik Sumbawa
+                                  </div>
+                                  <div class="exp-role-short">
+                                    Senior Backend Developer
+                                  </div>
+
+                                  <div class="exp-sub">
+                                    <span class="exp-badge badge-contract">Contract</span>
+                                    <span>2024 - Present</span>
+                                  </div>
+                                </div>
+
+                                <i class="fa fa-chevron-down exp-toggle-icon"></i>
+                              </div>
+
+                              <div class="exp-body">
+
+                                <ul class="exp-proj-list">
+                                  <li>Kerjaku Attendance App</li>
+                                  <li>SIMPROPBJ</li>
+                                  <li>E-SAKIP</li>
+                                  <li>SIREMS</li>
+                                  <li>Sumbawa Portal</li>
+                                  <li>Bapenda Tax System</li>
+                                </ul>
+
+                                <div class="exp-tech">
+                                  <span class="exp-pill">Laravel</span>
+                                  <span class="exp-pill">Flutter</span>
+                                  <span class="exp-pill">Golang</span>
+                                </div>
+
+                              </div>
+                            </div>
+
+                            <!-- KONG JAYA -->
+                            <div class="exp-company">
+                              <div class="exp-company-header" onclick="expToggle(this)">
+                                <div class="exp-icon" style="background:#f3f4f6;color:#555">
+                                  <img src="img/mrkong.png" alt="">
+                                </div>
+
+                                <div class="exp-meta">
+                                  <div class="exp-company-name">
+                                    PT Kong Jaya Perkasa
+                                  </div>
+                                  <div class="exp-role-short">
+                                    Middle Fullstack Developer
+                                  </div>
+
+                                  <div class="exp-sub">
+                                    <span class="exp-badge badge-contract">Contract</span>
+                                    <span>2020 - 2023</span>
+                                  </div>
+                                </div>
+
+                                <i class="fa fa-chevron-down exp-toggle-icon"></i>
+                              </div>
+
+                              <div class="exp-body">
+
+                                <ul class="exp-proj-list">
+                                  <li>Misterkong Ride Hailing</li>
+                                  <li>Kong Pos</li>
+                                  <li>Kong Ride</li>
+                                  <li>Saribuana E-Commerce</li>
+                                </ul>
+
+                                <div class="exp-tech">
+                                  <span class="exp-pill">Laravel</span>
+                                  <span class="exp-pill">Flutter</span>
+                                  <span class="exp-pill">Vue.js</span>
+                                </div>
+
+                              </div>
+                            </div>
+
+                            <!-- MASJID -->
+                            <div class="exp-company">
+                              <div class="exp-company-header" onclick="expToggle(this)">
+                                <div class="exp-icon" style="background:#fef3c7;color:#ca8a04">
+                                  <i class="fa fa-star"></i>
+                                </div>
+
+                                <div class="exp-meta">
+                                  <div class="exp-company-name">
+                                    Masjid Information System
+                                  </div>
+                                  <div class="exp-role-short">
+                                    Middle Mobile Developer
+                                  </div>
+
+                                  <div class="exp-sub">
+                                    <span class="exp-badge badge-volunteer">Volunteer</span>
+                                    <span>2022</span>
+                                  </div>
+                                </div>
+
+                                <i class="fa fa-chevron-down exp-toggle-icon"></i>
+                              </div>
+
+                              <div class="exp-body">
+                                <ul class="exp-proj-list">
+                                  <li>Adzan Scheduler</li>
+                                  <li>Al Quran Feature</li>
+                                  <li>Event Management</li>
+                                </ul>
+                              </div>
+                            </div>
+
+                            <!-- GRAHA -->
+                            <div class="exp-company">
+                              <div class="exp-company-header" onclick="expToggle(this)">
+                                <div class="exp-icon" style="background:#f3f4f6;color:#555">
+                                  <i class="fa fa-code"></i>
+                                </div>
+
+                                <div class="exp-meta">
+                                  <div class="exp-company-name">
+                                    PT Graha Software House
+                                  </div>
+                                  <div class="exp-role-short">
+                                    Junior Fullstack Developer
+                                  </div>
+
+                                  <div class="exp-sub">
+                                    <span class="exp-badge badge-intern">Internship</span>
+                                    <span>2017</span>
+                                  </div>
+                                </div>
+
+                                <i class="fa fa-chevron-down exp-toggle-icon"></i>
+                              </div>
+
+                              <div class="exp-body">
+                                <ul class="exp-proj-list">
+                                  <li>Academic Information System</li>
+                                  <li>Enrollment Module</li>
+                                  <li>Course & Grade Management</li>
+                                </ul>
+
+                                <div class="exp-tech">
+                                  <span class="exp-pill">Laravel</span>
+                                  <span class="exp-pill">PHP</span>
+                                  <span class="exp-pill">MySQL</span>
+                                </div>
+                              </div>
+                            </div>
+
                           </div>
-                        </div>
-                      </div>
+
+                          <!-- Toggle Script -->
+                          <script>
+                            function expToggle(header) {
+
+                              const body = header.nextElementSibling;
+                              const icon = header.querySelector('.exp-toggle-icon');
+
+                              const opened = body.style.display === 'block';
+
+                              document.querySelectorAll('.exp-body').forEach(item => {
+                                item.style.display = 'none';
+                              });
+
+                              document.querySelectorAll('.exp-toggle-icon').forEach(item => {
+                                item.style.transform = 'rotate(0deg)';
+                              });
+
+                              if (!opened) {
+                                body.style.display = 'block';
+                                icon.style.transform = 'rotate(180deg)';
+                              }
+                            }
+                          </script>
+
+                        </div><!-- /card-body -->
+                      </div><!-- /card -->
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </div><!-- /section -->
         </div>
       </div>
       <footer class="footer">
